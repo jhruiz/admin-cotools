@@ -6,7 +6,10 @@
         method: "GET",
         url: '../../pages/usuarios/add.html',
         success: function(respuesta) {
-            $('#content-data').html(respuesta);         
+            $('#content-data').html(respuesta);    
+            $('#1').hide();
+            $('#2').prop('checked', true);
+
         },
         error: function() {
             var mensaje = 'Se presentó un error. Por favor, inténtelo mas tarde.';
