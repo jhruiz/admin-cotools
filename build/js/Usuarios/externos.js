@@ -12,7 +12,7 @@
                 $('#1').hide();
                 $("#1 + label").hide();
                 $("#2").prop('checked', true).prop('disabled', true);
-            }, 3000)
+            }, 2500)
         },
         error: function() {
             var mensaje = 'Se presentó un error. Por favor, inténtelo mas tarde.';
