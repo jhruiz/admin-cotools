@@ -5,11 +5,14 @@
     $.ajax({
         method: "GET",
         url: '../../pages/usuarios/add.html',
-        success: function(respuesta) {
-            $('#content-data').html(respuesta);    
-            $('#1').hide();
-            $('#2').prop('checked', true);
 
+        success: function(respuesta) {
+            $('#content-data').html(respuesta);
+            setTimeout(function() {
+                $('#1').hide();
+                $("#1 + label").hide();
+                $("#2").prop('checked', true).prop('disabled', true);
+            }, 3000)
         },
         error: function() {
             var mensaje = 'Se presentó un error. Por favor, inténtelo mas tarde.';
