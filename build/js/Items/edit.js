@@ -216,12 +216,12 @@ function cargarImagenes() {
         success: function(respuesta) {
             console.log(respuesta);
 
-            // if(respuesta == '0'){
-            //     var mensaje = 'No fue posible cargar la imagen.';
-            //     sweetMessage('warning', mensaje);
-            // } else {
-            //     guardarArchivosCargados(respuesta);
-            // }
+            if(respuesta == '0'){
+                var mensaje = 'No fue posible cargar la imagen.';
+                sweetMessage('warning', mensaje);
+            } else {
+                guardarArchivosCargados(respuesta);
+            }
             
         },
         error: function() {
