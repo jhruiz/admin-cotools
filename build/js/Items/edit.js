@@ -203,6 +203,7 @@ function cargarImagenes() {
     var form_data = new FormData();
 
     for(const file of files) {
+        console.log('este es el file', file);
         form_data.append('myFiles[]', file);
     }
     
