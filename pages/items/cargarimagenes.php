@@ -7,9 +7,6 @@
     // Valida si se cargaron bien los archivos
     if(isset($_FILES['myFiles']['name'])) {
 
-        echo "entra por aqui";
-        die();
-
         // Crea la carpeta donde iran los archivos (valida que no exista primero)
         if (!file_exists('../../dist/img/' . $pkgName)) {
             mkdir('../../dist/img/' . $pkgName, 0777, true);
