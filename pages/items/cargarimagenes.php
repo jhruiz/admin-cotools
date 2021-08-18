@@ -4,6 +4,9 @@
     $pkgName = date("YmdHis");
     $uploadFiles = '';
 
+    echo "llega aqui";
+    die();
+
     // Valida si se cargaron bien los archivos
     if(isset($_FILES['myFiles']['name'])) {
 
