@@ -201,7 +201,7 @@ function validarArchivos(datos) {
 function cargarImagenes() {
     var files = $('#item_imgs')['0'].files;
     var form_data = new FormData();
-
+    console.log('entra por aqui');
     for(const file of files) {
         console.log('este es el file', file);
         form_data.append('myFiles[]', file);
