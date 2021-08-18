@@ -5,7 +5,7 @@
     $uploadFiles = '';
 
     echo "<pre>";
-    print_r($_FILES['myFiles']);
+    print_r($_FILES);
     echo "</pre>";
     die();    
 
