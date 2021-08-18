@@ -4,17 +4,10 @@
     $pkgName = date("YmdHis");
     $uploadFiles = '';
 
-    echo "<pre>";
-    print_r($_FILES);
-    echo "</pre>";
-    die();    
-
     // Valida si se cargaron bien los archivos
     if(isset($_FILES['myFiles']['name'])) {
 
-        echo "<pre>";
-        print_r($_FILES['myFiles']['name']);
-        echo "</pre>";
+        echo "entra por aqui";
         die();
 
         // Crea la carpeta donde iran los archivos (valida que no exista primero)
