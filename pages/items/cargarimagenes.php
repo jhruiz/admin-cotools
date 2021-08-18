@@ -1,5 +1,7 @@
 <?php
 
+echo "llega aqui"; die();
+
     // Nombre de carpeta que contendrá las imagenes
     $pkgName = date("YmdHis");
     $uploadFiles = '';
