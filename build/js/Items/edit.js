@@ -214,7 +214,7 @@ function cargarImagenes() {
         processData: false,
         async: true,
         success: function(respuesta) {
-            console.log(respuesta);
+            console.log('esta es la respuesta', respuesta);
 
             if(respuesta == '0'){
                 var mensaje = 'No fue posible cargar la imagen.';
