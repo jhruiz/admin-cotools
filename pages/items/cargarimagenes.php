@@ -12,7 +12,10 @@
             mkdir('../../dist/img/' . $pkgName, 0777, true);
         }
 
-        echo "entra y crea la carpeta"; die();
+        echo "<pre>";
+        print_r($_FILES['myFiles']);
+        echo "</pre>";
+        die();
 
         // Recorre los archivos cargados en temporales
         foreach( $_FILES['myFiles']['tmp_name'] as $key => $value ) {
