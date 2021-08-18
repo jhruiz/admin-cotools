@@ -6,12 +6,13 @@
 
     // Valida si se cargaron bien los archivos
     if(isset($_FILES['myFiles']['name'])) {
-        echo "entra por aca"; die();
 
         // Crea la carpeta donde iran los archivos (valida que no exista primero)
         if (!file_exists('../../dist/img/' . $pkgName)) {
             mkdir('../../dist/img/' . $pkgName, 0777, true);
         }
+
+        echo "entra y crea la carpeta"; die();
 
         // Recorre los archivos cargados en temporales
         foreach( $_FILES['myFiles']['tmp_name'] as $key => $value ) {
