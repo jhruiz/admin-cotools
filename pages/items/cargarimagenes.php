@@ -1,13 +1,12 @@
 <?php
 
-echo "llega aqui"; die();
-
     // Nombre de carpeta que contendrá las imagenes
     $pkgName = date("YmdHis");
     $uploadFiles = '';
 
     // Valida si se cargaron bien los archivos
     if(isset($_FILES['myFiles']['name'])) {
+        echo "entra por aca"; die();
 
         // Crea la carpeta donde iran los archivos (valida que no exista primero)
         if (!file_exists('../../dist/img/' . $pkgName)) {
