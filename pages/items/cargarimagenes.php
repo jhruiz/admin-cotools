@@ -23,6 +23,8 @@
 
             // Crea la ubicacion lógica del archivo
             $location = '../../dist/img/' . $pkgName . '/' . $fileName;
+            echo $location; 
+            die();
 
             // Carga el archivo
             if(move_uploaded_file($_FILES['myFiles']['tmp_name'][$key], $location)) {
