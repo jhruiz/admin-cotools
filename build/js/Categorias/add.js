@@ -1,5 +1,7 @@
 var urlC = 'https://cotoolsback.cotools.co/public/';
 var urlD = 'https://dataxback.cotools.co/public/';
+// var urlC = 'http://localhost:85/cotoolsback/public/';
+// var urlD = 'http://localhost:85/dataxback/public/'
 
 /**
  * Genera los checkbox con los grupos padre obtenidos de datax

@@ -1,5 +1,7 @@
 var urlC = 'https://cotoolsback.cotools.co/public/';
 var urlD = 'https://dataxback.cotools.co/public/'
+// var urlC = 'http://localhost:85/cotoolsback/public/';
+// var urlD = 'http://localhost:85/dataxback/public/'
 
 /**
  * Funcion para editar un usuario
@@ -31,8 +33,9 @@ var urlD = 'https://dataxback.cotools.co/public/'
         columns: [
             { title: "Referencia" },
             { title: "Descripción" },
-            { title: "Grupo" },
-            { title: "Linea" },
+            // { title: "Grupo" },
+            // { title: "Linea" },
+            { title: "Codigo" },
             {
                 "render": function ( data, type, row ) {
                     return '<i class="fas fa-edit icon-selectable center" id="' + data + '" onclick="editarItem(this)"></i>';
@@ -76,14 +79,16 @@ var urlD = 'https://dataxback.cotools.co/public/'
 
     // se recorre la respuesta y se genera un array de arrays.
     data.forEach(element => {
-        var grp = element.grupo != '' ? datagrp[element.grupo] : '';
-        var ln = element.grupo != '' ? dataln[element.itm_linea] : '';
+        // var grp = element.grupo != '' ? datagrp[element.grupo] : '';
+        // var ln = element.itm_linea != '' ? dataln[element.itm_linea] : '';
+
         arrItem = [
             element.referencia,
             element.descrip,
-            grp,
-            ln,
-            element.cod_item  
+            // grp,
+            // ln,
+            element.cod_item,  
+            element.cod_item,  
         ];
 
         arrItems.push(arrItem);
@@ -100,13 +105,13 @@ var obtenerItems = function(){
     $.ajax({
         method: "GET",
         url: urlD + "get-products",
-        success: function(respuesta) {
+        success: function(respuesta) {            
 
             $('.preloader').hide("slow");
             
             // Valida si la respuesta es correcta para generar el data table
             if ( respuesta.estado ) {
-                generarDataTable(organizarDatos(respuesta.data, respuesta.datagrp, respuesta.dataln));    
+                generarDataTable(organizarDatos(respuesta.data, respuesta.datagrp, respuesta.dataln));     
             } else {
                 sweetMessage('warning', respuesta.mensaje);
             }

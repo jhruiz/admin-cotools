@@ -1,5 +1,7 @@
 var urlC = 'https://cotoolsback.cotools.co/public/';
 var urlD = 'https://dataxback.cotools.co/public/';
+// var urlC = 'http://localhost:85/cotoolsback/public/';
+// var urlD = 'http://localhost:85/dataxback/public/'
 var estados = {};
 var estadosItems = {};
 
@@ -214,7 +216,6 @@ function cargarImagenes() {
         processData: false,
         async: true,
         success: function(respuesta) {
-            console.log('esta es la respuesta', respuesta);
 
             if(respuesta == '0'){
                 var mensaje = 'No fue posible cargar la imagen.';
@@ -262,7 +263,7 @@ function agregarPalabraClave() {
     } else {
         $.ajax({
             method: "GET",
-            url: urlC + "save-key-word",
+            url: urlD + "save-key-word",
             data: { itemId: itemId, palabra: palabra }, 
             success: function(respuesta) {       
                 // Valida si la respuesta es correcta para mostrar el producto
@@ -291,7 +292,7 @@ function eliminarPalabraClave(data) {
         var arrPalabra = data.id.split('_');
         $.ajax({
             method: "GET",
-            url: urlC + "delete-key-word",
+            url: urlD + "delete-key-word",
             data: { palabraId: arrPalabra['1'] }, 
             success: function(respuesta) {       
                 // Valida si la respuesta es correcta para mostrar el producto
@@ -337,7 +338,7 @@ var obtenerPalabrasClave = function() {
 
     $.ajax({
         method: "GET",
-        url: urlC + "get-key-word",
+        url: urlD + "get-key-word",
         data: { itemId: itemId }, 
         success: function(respuesta) {       
             // Valida si la respuesta es correcta para mostrar el producto
