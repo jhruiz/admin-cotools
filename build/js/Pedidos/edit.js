@@ -1,4 +1,5 @@
-var urlC = 'https://cotoolsback.cotools.co/public/';
+//var urlC = 'https://cotoolsback.cotools.co/public/';
+var urlC = 'http://localhost:85/cotoolsback/public/';
 var archivosCli = "";
 
 /**
@@ -10,7 +11,7 @@ function actualizarEstadoPedido() {
 
     $.ajax({
         method: "GET",
-        url: urlC + "update-order-state",
+        url: urlC + "pedido/actualizarestado",
         data: { pedidoId: pedidoId, idEst: estadoId},
         success: function(respuesta) {
                         
@@ -113,7 +114,7 @@ function cargarGuia( data ) {
 
         $.ajax({
             method: "GET",
-            url: urlC + "update-url-guide",
+            url: urlC + "pedido/actualizarguia",
             data: {pedidoId: pedidoId, documento: archivosCli},
             success: function(respuesta) {
                 $('#doc_guia').val('');

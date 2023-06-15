@@ -1,4 +1,5 @@
-var urlC = 'https://cotoolsback.cotools.co/public/';
+// var urlC = 'https://cotoolsback.cotools.co/public/';
+var urlC = 'http://localhost:85/cotoolsback/public/';
 
 /**
  * Funcion para ver el detalle del pedido
@@ -29,13 +30,15 @@ var urlC = 'https://cotoolsback.cotools.co/public/';
 
     // se recorre la respuesta y se genera un array de arrays.
     data.forEach(element => {
+
+        var nro_pdweb = generarNumeroPedido( element );
         arrPedido = [
-            element.nro_pdweb,     
-            element.nombre,     
-            element.identificacion,     
+            nro_pdweb,     
+            element.primer_nombre+' '+element.segundo_nombre+' '+element.primer_apellido+' '+element.segundo_apellido,     
+            element.nit,     
             element.email,     
             element.descripcion,
-            element.created,     
+            element.created_at,     
             element.id,     
         ];
 
@@ -99,7 +102,7 @@ var urlC = 'https://cotoolsback.cotools.co/public/';
 var obtenerPedidos = function() {
     $.ajax({
         method: "GET",
-        url: urlC + "get-orders",
+        url: urlC + "pedido/obtenerpedidos",
         success: function(respuesta) {
                         
             // Valida si la respuesta es correcta para generar el data table
@@ -115,6 +118,24 @@ var obtenerPedidos = function() {
             sweetMessage('error', mensaje);
         }
     })    
+}
+
+/**
+ * Genera el número de pedido que muestra al cliente tras aprobarlo
+ * @param {*} data 
+ */
+ var generarNumeroPedido = function( data ) {     
+    
+    var numPedido = '';
+
+    // separa la fecha por el espacio entre la fecha y la hora
+    var arrDate = data.created_at.split('T');
+    var arrHour = arrDate['1'].split('.');
+
+    // genera el número de pedido con el id del pedido, el id del usuario y la hora sin los dos puntos
+    numPedido = data.id.toString() + data.usuario_id.toString() + arrHour['0'].replaceAll(':', '');
+
+    return numPedido;
 }
 
 $( document ).ready(function() {

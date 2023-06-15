@@ -1,4 +1,5 @@
-var urlC = 'https://cotoolsback.cotools.co/public/';
+// var urlC = 'https://cotoolsback.cotools.co/public/';
+var urlC = 'http://localhost:85/cotoolsback/public/';
 var estadoPedidoId = "";
 
 /**
@@ -27,7 +28,7 @@ var obtenerEstadosPedido = function() {
 
     $.ajax({
         method: "GET",
-        url: urlC + "get-status-order",
+        url: urlC + "estadopedidos/obtener",
         success: function(respuesta) {
                         
             // Valida si la respuesta es correcta para generar el data table
@@ -50,17 +51,34 @@ var obtenerEstadosPedido = function() {
  * @param {*} data 
  */
 var setCabeceraPedido = function( data ) {
+    
     // Obtiene la fecha actual y setea la factura
     var date = new Date();
     var dia = date.getDate();
     var mes = date.getMonth() + 1;
     var anio = date.getFullYear();
     $('#fechaActual').append(dia + '-' + mes + '-' + anio);
-    $('#codigo-factura').append(data['0'].nro_pdweb);
-    $('#cod-cliente').append(data['0'].cod_benf);
-    $('#nombre-cliente').append(data['0'].nombre);
-    $('#ident-cliente').append(data['0'].identificacion);
-    $('#fecha-pedido').append(data['0'].fechaPedido);
+    $('#codigo-factura').append( generarNumeroPedidoF( data['0'] ) );
+    $('#nombre-cliente').append(data['0'].primer_nombre+' '+data['0'].segundo_nombre+' '+data['0'].primer_apellido+' '+data['0'].segundo_apellido);
+    $('#ident-cliente').append(data['0'].nit);
+    $('#fecha-pedido').append(data['0'].fechapedido);
+}
+
+/**
+ * Genera el número de pedido que muestra al cliente tras aprobarlo
+ * @param {*} data 
+ */
+ var generarNumeroPedidoF = function( data ) {     
+    
+    var numPedido = '';
+
+    // separa la fecha por el espacio entre la fecha y la hora
+    var arrDate = data.fechapedido.split(' ');
+
+    // genera el número de pedido con el id del pedido, el id del usuario y la hora sin los dos puntos
+    numPedido = data.id.toString() + data.usuario_id.toString() + arrDate['1'].replaceAll(':', '');
+
+    return numPedido;
 }
 
 /**
@@ -71,10 +89,10 @@ var setDatosItems = function( data ) {
     var infoDetalle = "";
     data.forEach(element => {
         infoDetalle += '<tr>';
-        infoDetalle += '<td>' + element.descripcion + '</td>';
+        infoDetalle += '<td>' + element.desc_item + '</td>';
         infoDetalle += '<td class="text-center">' + element.cantidad + '</td>';
-        infoDetalle += '<td class="text-right">' + numberFormater(element.precioventaunit) + '</td>';
-        infoDetalle += '<td class="text-center">' + element.tasaiva + '</td>';
+        infoDetalle += '<td class="text-right">' + numberFormater(element.vlr_item) + '</td>';
+        infoDetalle += '<td class="text-center">' + element.vlr_impuesto + '</td>';
         infoDetalle += '<td class="text-right">' + numberFormater(element.baseTtal) + '</td>';
         infoDetalle += '</td>';
     });
@@ -131,7 +149,7 @@ var obtenerInfoPedido = function() {
 
     $.ajax({
         method: "GET",
-        url: urlC + "get-order-details",
+        url: urlC + "pedidodetalle/obtenerdetalle",
         data: { pedidoId: pedidoId },
         async: false,
         success: function(respuesta) {
@@ -150,6 +168,10 @@ var obtenerInfoPedido = function() {
             sweetMessage('error', mensaje);
         }
     })     
+}
+
+var imprimirFactura = function() {
+    window.print();
 }
 
 $( document ).ready(function() {

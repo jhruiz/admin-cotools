@@ -1,22 +1,19 @@
-var urlC = 'https://cotoolsback.cotools.co/public/';
-var urlD = 'https://dataxback.cotools.co/public/';
-// var urlC = 'http://localhost:85/cotoolsback/public/';
-// var urlD = 'http://localhost:85/dataxback/public/'
+// var urlC = 'https://cotoolsback.cotools.co/public/';
+var urlC = 'http://localhost:85/cotoolsback/public/';
 
 /**
  * Genera los checkbox con los grupos padre obtenidos de datax
  * @param {*} data 
  */
 var generarCheckGrupos = function(data) {
+
     var htmlGrupos = "";
     htmlGrupos += '<div class="row">';
     data.forEach(element => {
-
         htmlGrupos += '<div class="col-md-4">';
-        htmlGrupos += '<input type="checkbox" id="grup_' + element.tipo_gru + '" class="chk-grupos">';
-        htmlGrupos += '<label for="' + element.tipo_gru + '" title="' + element.desc_gru.toLowerCase() + '"> &nbsp;' + obtenerNombreProducto(element.desc_gru.toLowerCase()) + '</label>';
-        htmlGrupos += '</div>';     
-         
+        htmlGrupos += '<input type="checkbox" id="grup_' + element.id + '" class="chk-grupos">';
+        htmlGrupos += '<label for="' + element.id + '" title="' + element.descripcion.toLowerCase() + '"> &nbsp;' + obtenerNombreProducto(element.descripcion.toLowerCase()) + '</label>';
+        htmlGrupos += '</div>';
     });
 
     htmlGrupos += '</div>';       
@@ -51,11 +48,11 @@ var generarCheckGrupos = function(data) {
 /**
  * Obtiene todos los grupos padre registrados en datax
  */
-var obtenerGruposDatax = function() {
+var obtenerGrupos = function() {
 
     $.ajax({
         method: "GET",
-        url: urlD + "get-groups",
+        url: urlC + "grupos/obtener",
         success: function(respuesta) {
             
             // Valida si la respuesta es correcta
@@ -99,7 +96,7 @@ function crearCategoria() {
     if(descripcion != ''){
         $.ajax({
             method: "GET",
-            url: urlC + "save-category",
+            url: urlC + "categorias/guardar",
             data: { descripcion: descripcion, grupos: grupos },
             success: function(respuesta) {
                 
@@ -125,5 +122,5 @@ function crearCategoria() {
 }
 
 $( document ).ready(function() {
-    obtenerGruposDatax();    
+    obtenerGrupos();    
 });

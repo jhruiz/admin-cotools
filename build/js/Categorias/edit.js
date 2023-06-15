@@ -1,7 +1,5 @@
-var urlC = 'https://cotoolsback.cotools.co/public/';
-var urlD = 'https://dataxback.cotools.co/public/';
-// var urlC = 'http://localhost:85/cotoolsback/public/';
-// var urlD = 'http://localhost:85/dataxback/public/'
+// var urlC = 'https://cotoolsback.cotools.co/public/';
+var urlC = 'http://localhost:85/cotoolsback/public/';
 
 /**
  * Obtiene los grupos seleccionados para una categoria
@@ -29,7 +27,7 @@ function actualizarCategoria() {
     if(descripcion != ''){
         $.ajax({
             method: "GET",
-            url: urlC + "update-category",
+            url: urlC + "categoria/actualizar",
             data: { descripcion: descripcion, grupos: grupos, categoriaId: categoriaId },
             success: function(respuesta) {
                 
@@ -58,7 +56,7 @@ function actualizarCategoria() {
 var marcarGrupos = function(data) {
 
     data.forEach(element => {
-        $('#grup_' + element.tipo_gru).prop( "checked", true );
+        $('#grup_' + element.grupo_id).prop( "checked", true );
     });
 
     $('.preloader').hide("slow");
@@ -92,7 +90,7 @@ var obtenerGruposCategoria = function() {
     var cat = $('#categoriaId').val();
     $.ajax({
         method: "GET",
-        url: urlC + "get-groups-category",
+        url: urlC + "gruposcategorias/obtener",
         data: { categoriaId: cat },
         success: function(respuesta) {
 
@@ -121,8 +119,8 @@ var obtenerGruposCategoria = function() {
     data.forEach(element => {
 
         htmlGrupos += '<div class="col-md-4">';
-        htmlGrupos += '<input type="checkbox" id="grup_' + element.tipo_gru + '" class="chk-grupos">';
-        htmlGrupos += '<label for="' + element.tipo_gru + '" title="' + element.desc_gru.toLowerCase() + '"> &nbsp;' + obtenerNombreProducto(element.desc_gru.toLowerCase()) + '</label>';
+        htmlGrupos += '<input type="checkbox" id="grup_' + element.id + '" class="chk-grupos">';
+        htmlGrupos += '<label for="' + element.id + '" title="' + element.descripcion.toLowerCase() + '"> &nbsp;' + obtenerNombreProducto(element.descripcion.toLowerCase()) + '</label>';
         htmlGrupos += '</div>';     
          
     });
@@ -135,11 +133,11 @@ var obtenerGruposCategoria = function() {
 /**
  * Obtiene todos los grupos padre registrados en datax
  */
- var obtenerGruposDatax = function() {
+ var obtenerGrupos = function() {
 
     $.ajax({
         method: "GET",
-        url: urlD + "get-groups",
+        url: urlC + "grupos/obtener",
         async: false,
         success: function(respuesta) {
             
@@ -167,10 +165,9 @@ var obtenerCategoria = function() {
 
     $.ajax({
         method: "GET",
-        url: urlC + "get-category",
+        url: urlC + "categoria/obtener",
         data: { categoriaId: cat },
         success: function(respuesta) {
-            
             // Valida si la respuesta es correcta
             if ( respuesta.estado ) {                
                 $('#descripcion').val(respuesta.data['0'].descripcion);
@@ -189,6 +186,6 @@ var obtenerCategoria = function() {
 
 $( document ).ready(function() {
     obtenerCategoria();
-    obtenerGruposDatax();  
+    obtenerGrupos();  
     obtenerGruposCategoria();  
 });

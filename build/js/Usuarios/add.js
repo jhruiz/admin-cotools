@@ -1,7 +1,24 @@
-var urlC = 'https://cotoolsback.cotools.co/public/';
+// var urlC = 'https://cotoolsback.cotools.co/public/';
+var urlC = 'http://localhost:85/cotoolsback/public/';
 
 //Instancia un arreglo que contendra los nombre de los documentos  
 var archivosCli = [];
+
+/**
+ * Obtiene el tipo de persona seleccionada para validar la información que requiere
+ */
+var inputsTipoPersona = function() {
+    var val = $('#person-type option:selected').val();
+    
+    // valida si el tipo de persona seleccionada es natural o juridica
+    if ( val == '1' ) {
+        $('.j-person').hide();
+        $('.n-person').show();
+    } else {
+        $('.n-person').hide();
+        $('.j-person').show();
+    }
+}
 
 /**
  * Obtiene los perfiles seleccionados
@@ -16,6 +33,54 @@ var perfilesSeleccionados = function() {
     });
 
     return perfiles;
+}
+
+/**
+ * Obtiene el tipo de personas
+ */
+ var obtenerTipoPersona = function() {
+    $.ajax({
+        method: "GET",
+        url: urlC + 'tipopersonas/obtener',
+
+        success: function(respuesta) {
+
+            // se crea el html del select
+            var tpSel = ''
+            respuesta.data.forEach(element => {
+                tpSel += '<option value="'+ element.id +'">'+ element.descripcion +'</option>';
+            });
+            $('#person-type').append(tpSel);            
+            $('#person-type').change(inputsTipoPersona);
+            
+        },
+        error: function() {
+            var mensaje = 'Se presentó un error. Por favor, inténtelo mas tarde.';
+            sweetMessage('error', mensaje);
+        }
+      });    
+}
+
+var obtenerCiudades = function() {
+    $.ajax({
+        method: "GET",
+        url: urlC + 'ciudades/obtener',
+
+        success: function(respuesta) {
+
+            // se crea el html del select
+            var cSel = ''
+            respuesta.data.forEach(element => {
+                cSel += '<option value="'+ element.id +'">'+ element.descripcion +'</option>';
+            });
+            $('#cities').append(cSel);
+            
+        },
+        error: function() {
+            var mensaje = 'Se presentó un error. Por favor, inténtelo mas tarde.';
+            sweetMessage('error', mensaje);
+        }
+      });         
 }
 
 /**
@@ -83,7 +148,7 @@ var crearInputDocumentos = function(data) {
 var obtenerPerfiles = function() {
     $.ajax({
         method: "GET",
-        url: urlC + "get-profiles",
+        url: urlC + "perfiles/obtener",
         success: function(respuesta) {
             if( respuesta.estado ) {
                 crearCheckPerfiles(respuesta.data);
@@ -104,7 +169,7 @@ var obtenerPerfiles = function() {
 var obtenerDocumentos = function() {
     $.ajax({
         method: "GET",
-        url: urlC + "get-documents",
+        url: urlC + "documentos/obtener",
         success: function(respuesta) {
 
             $('.preloader').hide("slow");
@@ -129,7 +194,7 @@ var obtenerDocumentos = function() {
 var crearDocumentoUsuario = function(usuarioId) {
     $.ajax({
         method: "GET",
-        url: urlC + "save-user-documents",
+        url: urlC + "documentosusr/crear",
         data: { usuarioId : usuarioId, documentos : archivosCli },
         success: function(respuesta) {
 
@@ -198,9 +263,16 @@ var cargarArchivos = function() {
  */
 function crearUsuario() {
 
-    var nombre =$('#nombre').val();
+    var tipoPersona = $('#person-type option:selected').val();
+    var nombres =$('#nombre').val();
+    var apellidos =$('#apellido').val();
+    var razonSocial =$('#razon-social').val();
     var identificacion =$('#identificacion').val();
     var email =$('#email').val();
+    var cities =$('#cities option:selected').val();
+    var direccion =$('#direccion').val();
+    var telefono =$('#telefono').val();
+    var celular =$('#celular').val();
     var perfiles = perfilesSeleccionados();
 
     // carga los archivos
@@ -208,8 +280,20 @@ function crearUsuario() {
 
     $.ajax({
         method: "GET",
-        url: urlC + "create-user",
-        data: {nombre: nombre, identificacion: identificacion, email: email, perfiles: perfiles},
+        url: urlC + "usuarios/crear",
+        data: {
+            identificacion: identificacion, 
+            email: email,
+            ciudad: cities,
+            direccion: direccion,
+            celular: celular,
+            tipoPersona: tipoPersona,
+            nombres: nombres, 
+            apellidos: apellidos, 
+            razonSocial: razonSocial,
+            telefono: telefono,
+            perfiles: perfiles
+        },
         success: function(respuesta) {
 
             if(respuesta.estado){
@@ -229,6 +313,11 @@ function crearUsuario() {
 }
 
 $( document ).ready(function() {
+    // se oculta el campo de persona juridica
+    $('.j-person').hide();
+
+    obtenerTipoPersona();
+    obtenerCiudades();
     obtenerPerfiles();
     obtenerDocumentos();  
 });

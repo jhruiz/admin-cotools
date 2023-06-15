@@ -1,4 +1,5 @@
-var urlC = 'https://cotoolsback.cotools.co/public/';
+// var urlC = 'https://cotoolsback.cotools.co/public/';
+var urlC = 'http://localhost:85/cotoolsback/public/';
 
 /**
  * Funcion para sincronizar usuarios desde datax al front de admin cotools
@@ -77,14 +78,13 @@ var organizarDatos = function( data ) {
     var arrUsuarios = [];
 
     // se recorre la respuesta y se genera un array de arrays.
-    data.forEach(element => {
+    data.forEach(e => {
         arrUsuario = [
-            element.nombre,
-            element.identificacion,
-            element.perfil,
-            element.email,
-            element.estado,
-            element.id            
+            e.primer_nombre + ' ' + e.segundo_nombre + ' ' + e.primer_apellido + ' ' + e.segundo_apellido,
+            e.nit,
+            e.email,
+            e.estado,
+            e.id            
         ];
 
         arrUsuarios.push(arrUsuario);
@@ -104,7 +104,6 @@ var generarDataTable = function( data ) {
         columns: [
             { title: "Nombre" },
             { title: "Identificación" },
-            { title: "Perfil" },
             { title: "Email" },
             { title: "Estado" },
             {
@@ -148,7 +147,7 @@ var obtenerUsuarios = function() {
 
     $.ajax({
         method: "GET",
-        url: urlC + "get-users",
+        url: urlC + "usuarios/obtener",
         success: function(respuesta) {
 
             $('.preloader').hide("slow");

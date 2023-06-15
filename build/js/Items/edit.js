@@ -1,7 +1,5 @@
-var urlC = 'https://cotoolsback.cotools.co/public/';
-var urlD = 'https://dataxback.cotools.co/public/';
-// var urlC = 'http://localhost:85/cotoolsback/public/';
-// var urlD = 'http://localhost:85/dataxback/public/'
+// var urlC = 'https://cotoolsback.cotools.co/public/';
+var urlC = 'http://localhost:85/cotoolsback/public/';
 var estados = {};
 var estadosItems = {};
 
@@ -16,7 +14,7 @@ function eliminarImg(data) {
 
         $.ajax({
             method: "GET",
-            url: urlC + "delete-image-item", 
+            url: urlC + "imagenes/eliminar", 
             data: { idImage: arrInput['1'] },
             async: false,
             success: function(respuesta) {       
@@ -107,7 +105,7 @@ var obtenerEstados = function(){
     
     $.ajax({
         method: "GET",
-        url: urlC + "get-states", 
+        url: urlC + "estados/obtener", 
         async: false,
         success: function(respuesta) {       
             // Valida si la respuesta es correcta
@@ -130,7 +128,7 @@ var obtenerEstados = function(){
 var obtenerEstadosItems = function() {
     $.ajax({
         method: "GET",
-        url: urlC + "get-items-states", 
+        url: urlC + "estadoitems/obtener", 
         async: false,
         success: function(respuesta) {       
             // Valida si la respuesta es correcta
@@ -156,7 +154,7 @@ var guardarArchivosCargados = function(strImagenes) {
 
     $.ajax({
         method: "GET",
-        url: urlC + "save-images",
+        url: urlC + "imagenes/guardar",
         data: { itemId: itemId, arrImagenes: arrImagenes }, 
         success: function(respuesta) {       
             // Valida si la respuesta es correcta
@@ -263,7 +261,7 @@ function agregarPalabraClave() {
     } else {
         $.ajax({
             method: "GET",
-            url: urlD + "save-key-word",
+            url: urlC + "palabrasclave/guardar",
             data: { itemId: itemId, palabra: palabra }, 
             success: function(respuesta) {       
                 // Valida si la respuesta es correcta para mostrar el producto
@@ -292,7 +290,7 @@ function eliminarPalabraClave(data) {
         var arrPalabra = data.id.split('_');
         $.ajax({
             method: "GET",
-            url: urlD + "delete-key-word",
+            url: urlC + "palabrasclave/eliminar",
             data: { palabraId: arrPalabra['1'] }, 
             success: function(respuesta) {       
                 // Valida si la respuesta es correcta para mostrar el producto
@@ -338,7 +336,7 @@ var obtenerPalabrasClave = function() {
 
     $.ajax({
         method: "GET",
-        url: urlD + "get-key-word",
+        url: urlC + "palabrasclave/obtener",
         data: { itemId: itemId }, 
         success: function(respuesta) {       
             // Valida si la respuesta es correcta para mostrar el producto
@@ -360,11 +358,14 @@ var obtenerPalabrasClave = function() {
  * @param {*} data 
  */
 var setDatosItem = function(data) {
+    console.log(data);
     $('#referencia').val(data['0'].referencia).prop("disabled", true);   
-    $('#descripcion').val(data['0'].descrip).prop("disabled", true);
-    $('#grupo').val(data['0'].desc_gru).prop("disabled", true);   
-    $('#linea').val(data['0'].des_linea).prop("disabled", true); 
-    $('#keydescription').append(data['0'].descrip);  
+    $('#descripcion').val(data['0'].descripcion).prop("disabled", true);
+    $('#grupo').val(data['0'].grp_desc).prop("disabled", true);   
+    $('#linea').val(data['0'].ln_desc).prop("disabled", true); 
+    $('#saldo').val(data['0'].saldoactual).prop("disabled", true); 
+    $('#unidadF').val(data['0'].unidad_factor).prop("disabled", true); 
+    $('#keydescription').append(data['0'].descripcion);  
 }
 
 /**
@@ -376,20 +377,19 @@ var agregarImagenesGUI = function(data) {
 
     data.forEach( element => {
         // crea el select para los estados
-        var htmlEstados = '<select class="custom-select rounded-0" id="est_' + element.id + '" onchange="cambiarEstado(this)">';        
-        estados.forEach( elEstados => {
-            var selected = element.estado_id == elEstados.id ? 'selected' : '';
-            htmlEstados += '<option value="' + elEstados.id + '" ' + selected + '>' + elEstados.descripcion + '</option>'
-        });
-        htmlEstados += '</select>';
+        // var htmlEstados = '<select class="custom-select rounded-0" id="est_' + element.id + '" onchange="cambiarEstado(this)">';        
+        // estados.forEach( elEstados => {
+        //     var selected = element.estado_id == elEstados.id ? 'selected' : '';
+        //     htmlEstados += '<option value="' + elEstados.id + '" ' + selected + '>' + elEstados.descripcion + '</option>'
+        // });
+        // htmlEstados += '</select>';
 
-        var htmlEstadosItems = '<select class="custom-select rounded-0" id="estI_' + element.id + '" onchange="cambiarEstadoItems(this)">';
-        estadosItems.forEach( elEstItems => {
-            var selected = element.estadoitem_id == elEstItems.id ? 'selected' : '';
-            htmlEstadosItems += '<option value="' + elEstItems.id + '" ' + selected + '>' + elEstItems.descripcion + '</option>'
-        });
-        htmlEstadosItems += '</select>';
-
+        // var htmlEstadosItems = '<select class="custom-select rounded-0" id="estI_' + element.id + '" onchange="cambiarEstadoItems(this)">';
+        // estadosItems.forEach( elEstItems => {
+        //     var selected = element.estadoitem_id == elEstItems.id ? 'selected' : '';
+        //     htmlEstadosItems += '<option value="' + elEstItems.id + '" ' + selected + '>' + elEstItems.descripcion + '</option>'
+        // });
+        // htmlEstadosItems += '</select>';
 
         htmlImagenes += '<div class="col-12 col-sm-6 col-md-4 d-flex align-items-stretch flex-column" id="dvImg_' + element.id + '">';
         htmlImagenes += '<div class="card bg-light d-flex flex-fill">';
@@ -404,17 +404,17 @@ var agregarImagenesGUI = function(data) {
         htmlImagenes += '</div>';
         htmlImagenes += '<div class="card-footer">';
         htmlImagenes += '<div class="text-right">';
-        htmlImagenes += '<div class="form-group row" style="margin-bottom:5px;">';
-        htmlImagenes += '<div class="col-sm-6">';
-        htmlImagenes += htmlEstados;
-        htmlImagenes += '</div>';
-        htmlImagenes += '<div class="col-sm-6">';
-        htmlImagenes += htmlEstadosItems;
-        htmlImagenes += '</div>';
+        // htmlImagenes += '<div class="form-group row" style="margin-bottom:5px;">';
+        // htmlImagenes += '<div class="col-sm-6">';
+        // htmlImagenes += htmlEstados;
+        // htmlImagenes += '</div>';
+        // htmlImagenes += '<div class="col-sm-6">';
+        // htmlImagenes += htmlEstadosItems;
+        // htmlImagenes += '</div>';
         // htmlImagenes += '<div class="col-sm-2">';
         // htmlImagenes += '<input type="hidden" class="form-control" id="pos_' + element.id + '" value="' + element.posicion + '" onchange="cambiarPosicion(this)">';
         // htmlImagenes += '</div>';
-        htmlImagenes += '</div>';
+        // htmlImagenes += '</div>';
         htmlImagenes += '<span>';
         htmlImagenes += '<i class="fas fa-trash-alt" id="elim_' + element.id + '" title="Eliminar imágen" onclick="eliminarImg(this)"></i>';
         htmlImagenes += '</span>';
@@ -436,9 +436,9 @@ var obtenerImagenes = function() {
 
     $.ajax({
         method: "GET",
-        url: urlC + "get-images",
+        url: urlC + "imagenesitem/obtener",
         data: { itemId: itemId }, 
-        success: function(respuesta) {  
+        success: function(respuesta) {
             
             $('.preloader').hide("slow");
 
@@ -462,12 +462,12 @@ var obtenerImagenes = function() {
 var obtenerItem = function() {
 
     var itemId = $('#itemId').val();
-
+    
     $.ajax({
         method: "GET",
-        url: urlD + "get-product",
+        url: urlC + "item/obtener",
         data: { itemId: itemId }, 
-        success: function(respuesta) {       
+        success: function(respuesta) {    
             // Valida si la respuesta es correcta para mostrar el producto
             if ( respuesta.estado ) {
                 setDatosItem(respuesta.data);

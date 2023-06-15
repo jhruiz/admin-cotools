@@ -19,36 +19,51 @@
 
         <input id="itemId" name="itemId" type="hidden" value="">
 
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-signature"></i></span>
+        <div class="input-group col-md-12 mb-3">
+            <div class="input-group col-md-6">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-signature"></i></span>
+                </div>
+                <input type="text" id="referencia" class="form-control" placeholder="Referencia">
             </div>
-            <input type="text" id="referencia" class="form-control" placeholder="Referencia">
+            <div class="input-group col-md-6">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-signature"></i></span>
+                </div>
+                <input type="text" id="descripcion" class="form-control" placeholder="Descripcion">
+            </div>
         </div>
 
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-signature"></i></span>
+        <div class="input-group col-md-12 mb-3">
+            <div class="input-group col-md-6">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-signature"></i></span>
+                </div>
+                <input type="text" id="grupo" class="form-control" placeholder="Descripcion">
             </div>
-            <input type="text" id="descripcion" class="form-control" placeholder="Descripcion">
+            <div class="input-group col-md-6">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-signature"></i></span>
+                </div>
+                <input type="text" id="linea" class="form-control" placeholder="Grupo">
+            </div>
         </div>
 
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-signature"></i></span>
+        <div class="input-group col-md-12 mb-3">
+            <div class="input-group col-md-6">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-signature"></i></span>
+                </div>
+                <input type="text" id="saldo" class="form-control" placeholder="Saldo Actual">
             </div>
-            <input type="text" id="grupo" class="form-control" placeholder="Grupo">
-        </div>
-
-        <div class="input-group mb-3">
-            <div class="input-group-prepend">
-                <span class="input-group-text"><i class="fas fa-signature"></i></span>
+            <div class="input-group col-md-6">
+                <div class="input-group-prepend">
+                    <span class="input-group-text"><i class="fas fa-signature"></i></span>
+                </div>
+                <input type="text" id="unidadF" class="form-control" placeholder="Unidad Factor">
             </div>
-            <input type="text" id="linea" class="form-control" placeholder="Linea">
         </div>
-
     </div>   
-
 </div>
 
 <div class="card">
@@ -66,7 +81,7 @@
     <div class="card-body">
 
         <div class="input-group mb-3">
-            <input type="text" class="form-control" id="descNuevaPalabra">
+            <input type="text" class="form-control" id="descNuevaPalabra" autocomplete="off">
             <span class="input-group-append">
               <button type="button" class="btn btn-primary btn-flat" onclick="agregarPalabraClave()">Agregar</button>
             </span>

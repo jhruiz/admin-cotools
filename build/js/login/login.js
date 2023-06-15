@@ -1,4 +1,5 @@
-var urlC = 'https://cotoolsback.cotools.co/public/';
+// var urlC = 'https://cotoolsback.cotools.co/public/';
+var urlC = 'http://localhost:85/cotoolsback/public/';
 
 /**
  * Funcion de login para usuarios administradores
@@ -10,7 +11,7 @@ var loginFunction = function() {
 
     $.ajax({
         method: "GET",
-        url: urlC + "login-user",
+        url: urlC + "usuario/login",
         data: { user: user, password: password },
         success: function(respuesta) {
             if ( respuesta.estado ) {

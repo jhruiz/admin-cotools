@@ -1,4 +1,5 @@
-var urlC = 'https://cotoolsback.cotools.co/public/';
+//var urlC = 'https://cotoolsback.cotools.co/public/';
+var urlC = 'http://localhost:85/cotoolsback/public/';
 
 /**
  * Obtiene los perfiles seleccionados
@@ -27,7 +28,7 @@ function actualizarUsuario() {
     $.ajax({
         method: "GET",
         async: false,
-        url: urlC + "update-user",
+        url: urlC + "usuario/actualizar",
         data: { id: usuarioId, estado: estado, perfiles: perfiles, email: email },
         success: function(respuesta) {       
             // Valida si la respuesta es correcta
@@ -52,9 +53,18 @@ function actualizarUsuario() {
  */
 var setDatosUsuario = function(data) {
 
-    $('#nombre').val(data['0'].nombre).prop("disabled", true);   
-    $('#identificacion').val(data['0'].identificacion).prop("disabled", true);
-    $('#email').val(data['0'].email).prop("disabled", true);   
+    $('.user-data').prop("disabled", true);
+
+    $('#nombre').val(data['0'].primer_nombre + ' ' + data['0'].segundo_nombre + ' ' + data['0'].primer_apellido + ' ' + data['0'].segundo_apellido);   
+    $('#email').val(data['0'].email);
+    $('#tipo_documento').val(data['0'].tipo_documento);
+    $('#identificacion').val(data['0'].nit);
+    $('#tipo_persona').val(data['0'].tipo_persona);
+    $('#regimen').val(data['0'].regimen);
+    $('#ciudad').val(data['0'].ciudad);
+    $('#direccion').val(data['0'].direccion);
+    $('#telefono').val(data['0'].telefono);
+    $('#celular').val(data['0'].celular);
 
     data.forEach(element => {
         $('#estadosUsuario').val(element.estado_id);
@@ -102,7 +112,7 @@ var obtenerEstados = function(){
     $.ajax({
         method: "GET",
         async: false,
-        url: urlC + "get-states",
+        url: urlC + "estados/obtener",
         success: function(respuesta) {       
             // Valida si la respuesta es correcta
             if ( respuesta.estado ) {
@@ -126,7 +136,7 @@ var obtenerPerfiles = function(){
     $.ajax({
         method: "GET",
         async: false,
-        url: urlC + "get-profiles",
+        url: urlC + "perfiles/obtener",
         success: function(respuesta) {       
             // Valida si la respuesta es correcta
             if ( respuesta.estado ) {   
@@ -151,7 +161,7 @@ var obtenerPerfiles = function(){
 
     $.ajax({
         method: "GET",
-        url: urlC + "get-user",
+        url: urlC + "usuario/obtener",
         data: { usuarioId: usuarioId }, 
         success: function(respuesta) {  
             
@@ -185,7 +195,7 @@ function verDocumento(data) {
     // ajax para verificar documento
     $.ajax({
         method: "GET",
-        url: urlC + "check-user-documents",
+        url: urlC + "documentosusr/check",
         data: { documentoUsuarioId: data.id }, 
         success: function(respuesta) {       
 
@@ -215,7 +225,7 @@ var obtenerDocumentos = function() {
 
     $.ajax({
         method: "GET",
-        url: urlC + "get-user-documents",
+        url: urlC + "documentosusr/obtener",
         data: { usuarioId: usuarioId }, 
         success: function(respuesta) {       
             // Valida si la respuesta es correcta para mostrar los documentos

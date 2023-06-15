@@ -5,17 +5,16 @@
         <div class="col-12">
           <h2 class="page-header">
             <input type="hidden" id="pedidoId" value="">
-            Cotools
+            Torque Racing
             <small class="float-right" id="fechaActual"></small>
           </h2>
         </div>
       </div>
 
       <div class="row invoice-info">
-        <div class="col-sm-4 invoice-col">
+        <div class="col-sm-6 invoice-col">
           <address>
             <b>Pedido #<span id="codigo-factura"></span></b><br>
-            <b>Código Cliente ID: </b><span id="cod-cliente"></span><br>
             <b>Nombre cliente: </b><span id="nombre-cliente"></span><br>
             <b>Identificación cliente: </b><span id="ident-cliente"></span><br>
             <b>Fecha pedido: </b><span id="fecha-pedido"></span><br>
@@ -27,7 +26,7 @@
     <!-- Table row -->
     <div class="row">
       <div class="col-12 table-responsive">
-        <table class="table">
+        <table class="table table-striped">
           <thead>
             <tr>                        
               <th>Item</th>
@@ -41,10 +40,15 @@
           <tbody id="detalle-ttles"></tbody>
         </table>
       </div>
+
+      <div class="container-fluid no-print ms-1 px-2">      
+        <a title="Imprimir Factura" href="#" onclick="imprimirFactura();return false;" rel="noopener" class="btn btn-default"><i class="fas fa-print"></i>Print</a>
+      </div>
+
     </div>
   </section>
 
-  <section class="invoice" style="margin-top: 15px; margin-bottom: 15px;">
+  <section class="invoice no-print" style="margin-top: 15px; margin-bottom: 15px;">
     <div class="container-fluid">
       <div class="row">
 
@@ -72,3 +76,4 @@
   </section>
   <script src="../../build/js/Pedidos/view.js"></script>
   <script src="../../build/js/Pedidos/edit.js"></script>
+

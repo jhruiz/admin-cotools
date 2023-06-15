@@ -1,4 +1,4 @@
-var urlC = 'https://cotoolsback.cotools.co/public/';
+var urlC = 'http://localhost:85/cotoolsback/public/';
 
 /**
  * Setea el div content con el formulario para crear un nuevo usuario
@@ -107,7 +107,7 @@ var urlC = 'https://cotoolsback.cotools.co/public/';
 var obtenerCategorias = function() {
     $.ajax({
         method: "GET",
-        url: urlC + "get-categories",
+        url: urlC + "categorias/obtener",
         success: function(respuesta) {
 
             $('.preloader').hide("slow");
